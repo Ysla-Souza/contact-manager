@@ -2,6 +2,10 @@ package com.projeto.contactmanager.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+@Entity
+@Table(name = "person")
 public class Person {
     
     Long id;
@@ -85,8 +89,8 @@ public class Person {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Person other = (Person) obj;
-        return id == other.id;
+        Contact other = (Contact) obj;
+        return id == other.getId();
     }
     
     

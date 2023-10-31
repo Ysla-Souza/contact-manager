@@ -70,7 +70,7 @@ public class Contact {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Person other = (Person) obj;
+        Contact other = (Contact) obj;
         return id == other.id;
     }
     
