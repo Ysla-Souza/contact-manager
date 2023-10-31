@@ -1,19 +1,39 @@
 package com.projeto.contactmanager.model;
 
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import net.minidev.json.annotate.JsonIgnore;
 @Entity
 @Table(name = "person")
 public class Person {
     
-    Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String name;
     private String address;
+
+    @Column
     private String code;
+
+    @Column
     private String city;
+
+    @Column
     private String state;
+
+    @OneToMany()
+    private List<Contact> contact;
 
     public Person (){
 
@@ -93,5 +113,7 @@ public class Person {
         return id == other.getId();
     }
     
-    
+    public List<Contact> geContacts(){
+        return contact;
+    }
 }
