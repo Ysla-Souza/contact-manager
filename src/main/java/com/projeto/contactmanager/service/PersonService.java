@@ -3,6 +3,7 @@ package com.projeto.contactmanager.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projeto.contactmanager.model.Person;
@@ -15,6 +16,7 @@ public class PersonService implements PersonInterface{
     
     private PersonRepository repositoryP;
 
+    @Autowired
     public PersonService(PersonRepository repositoryP){
         this.repositoryP = repositoryP;
     }

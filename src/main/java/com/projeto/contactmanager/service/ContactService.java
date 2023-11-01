@@ -3,8 +3,10 @@ package com.projeto.contactmanager.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projeto.contactmanager.exceptions.ResourceNotFoundException;
 import com.projeto.contactmanager.model.Contact;
 import com.projeto.contactmanager.model.Person;
 import com.projeto.contactmanager.repository.ContactRepository;
@@ -17,7 +19,7 @@ public class ContactService implements ContactInterface{
     private ContactRepository repositoryC;
     private PersonRepository repositoryP;
 
-
+    @Autowired
     public ContactService(ContactRepository repositoryC, PersonRepository repositoryP
     ){
         this.repositoryC = repositoryC;
@@ -33,7 +35,7 @@ public class ContactService implements ContactInterface{
         return repositoryC.save(contact);
         }
     else {
-        return null;
+        throw new ResourceNotFoundException("ID " + idPerson + " Not Found");
         }
     }  
     

@@ -114,8 +114,8 @@ public class Person {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Contact other = (Contact) obj;
-        return id == other.getId();
+        Person other = (Person) obj;
+        return id == other.id;
     }
     
     public List<Contact> geContacts(){
