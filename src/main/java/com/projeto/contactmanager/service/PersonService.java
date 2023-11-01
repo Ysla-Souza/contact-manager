@@ -49,8 +49,13 @@ public class PersonService implements PersonInterface{
     }
 
     @Override
-    public void delete(Long idLong) {
-        repositoryP.deleteById(idLong);
+    public void delete(Long id) {
+        repositoryP.deleteById(id);
+    }
+
+    public Person getPersonById(Long id){
+        Optional<Person> personOP = repositoryP.findById(id);
+        return personOP.orElse(null);
     }
 
     

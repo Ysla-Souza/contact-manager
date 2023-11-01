@@ -34,37 +34,41 @@ public class ContactService implements ContactInterface{
         return repositoryC.save(contact);
         }
     else {
-        
+        return null;
         }
     }  
     
     @Override
     public Optional<Contact> getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return repositoryC.findById(id);
     }
 
     @Override
     public List<Contact> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return repositoryC.findAll();
     }
 
     @Override
     public Contact update(Contact contact) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Optional<Contact> updateC = repositoryC.findById(contact.getId());
+        if (updateC.isPresent()){
+            Contact newC = updateC.get();
+            newC.setId(contact.getId());
+            newC.setContactType(contact.getContactType());
+            newC.setContact(contact.getContact());
+            newC.setPerson(contact.getPerson());
+            return repositoryC.save(newC);
+         }
+         return contact;
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        repositoryC.deleteById(id);
     }
 
     @Override
     public Contact save(Contact contact) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return repositoryC.save(contact);
     }
 }
