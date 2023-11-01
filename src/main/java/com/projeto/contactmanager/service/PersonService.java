@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto.contactmanager.model.Person;
 import com.projeto.contactmanager.repository.PersonRepository;
+import com.projeto.contactmanager.service.DTO.DirectMailDTO;
 import com.projeto.contactmanager.service.interfaces.PersonInterface;
 
 @Service
@@ -58,5 +59,17 @@ public class PersonService implements PersonInterface{
         return personOP.orElse(null);
     }
 
+    public DirectMailDTO getDirectMailDTO(Long id){
+        Optional<Person> personOP = repositoryP.findById(id);
+        if(personOP.isPresent()){
+            Person person = personOP.get();
+            String directMail = person.getAddress() + 
+            " - PostalCode: " + person.getCode() +
+            " - " + person.getCity() + "/" + person.getState();
+            return new DirectMailDTO(person.getId(), person.getName(), directMail);
+        }
+
+        return null;
+    }
     
 }

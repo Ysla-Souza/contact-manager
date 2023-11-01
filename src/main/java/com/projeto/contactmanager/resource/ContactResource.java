@@ -51,7 +51,6 @@ public class ContactResource { // Fazer as exception
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        Contact contactDelete = contactService.getById(id).orElse(null);
         contactService.delete(id);
         return ResponseEntity.noContent().build();
     }

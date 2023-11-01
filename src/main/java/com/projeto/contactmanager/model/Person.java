@@ -1,5 +1,6 @@
 package com.projeto.contactmanager.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -119,5 +120,14 @@ public class Person {
     
     public List<Contact> geContacts(){
         return contact;
+    }
+
+    public void addContact(Contact newContact) {
+        if (contact == null){
+            contact = new ArrayList<>();
+        }
+
+        contact.add(newContact);
+        newContact.setPerson(this);
     }
 }
