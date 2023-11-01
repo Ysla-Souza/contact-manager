@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.contactmanager.exceptions.ResourceNotFoundException;
 import com.projeto.contactmanager.model.Contact;
 import com.projeto.contactmanager.model.Person;
 import com.projeto.contactmanager.service.ContactService;
 import com.projeto.contactmanager.service.PersonService;
 import com.projeto.contactmanager.service.DTO.DirectMailDTO;
 
+@RestController
+@RequestMapping("/person")
 public class PersonResource { // Fazer as exception
     
     private PersonService servicePerson;
@@ -63,6 +68,9 @@ public class PersonResource { // Fazer as exception
         if (contact.getContactType() == null || contact.getContact() == null){
             return ResponseEntity.badRequest().build();
         }
+        if (person == null) {
+            throw new ResourceNotFoundException("ID " + id + " Not Found");
+        }
         
         contact.setPerson(person);
         Contact newContact = serviceContact.save(contact);
@@ -71,10 +79,14 @@ public class PersonResource { // Fazer as exception
         return ResponseEntity.ok(personUpdated);
     }
 
-    @GetMapping("/{personID}")
+    @GetMapping("/{personID}/contacts")
     public ResponseEntity<List<Contact>> getPersonByContact(@PathVariable Long personID){
         Person person = servicePerson.getPersonById(personID);
+        if (person == null) {
+            throw new ResourceNotFoundException("ID " + personID + " Not Found");
+        }
         List<Contact> contacts = person.geContacts();
+        
         return ResponseEntity.ok(contacts);
     }
 

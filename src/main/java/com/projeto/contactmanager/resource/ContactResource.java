@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.contactmanager.exceptions.ResourceNotFoundException;
 import com.projeto.contactmanager.model.Contact;
 import com.projeto.contactmanager.service.ContactService;
 import com.projeto.contactmanager.service.PersonService;
@@ -35,13 +36,13 @@ public class ContactResource { // Fazer as exception
 
     @GetMapping("/{id}")
     public ResponseEntity<Contact> getById(@PathVariable Long id) {
-        Contact contact = contactService.getById(id).orElse(null);
+        Contact contact = contactService.getById(id).orElseThrow(() -> new ResourceNotFoundException("ID " + id + " Not Found"));
         return ResponseEntity.ok(contact);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Contact> update(@PathVariable Long id, @RequestBody Contact updateC){
-        Contact contactExist = contactService.getById(id).orElse(null);
+        Contact contactExist = contactService.getById(id).orElseThrow(() -> new ResourceNotFoundException("ID " + id + " Not Found"));
         contactExist.setContactType(updateC.getContactType());
         contactExist.setContact(updateC.getContact());
         Contact contactSave = contactService.update(contactExist);
@@ -51,6 +52,7 @@ public class ContactResource { // Fazer as exception
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
+        Contact contactDelete = contactService.getById(id).orElseThrow(() -> new ResourceNotFoundException("ID " + id + " Not Found"));
         contactService.delete(id);
         return ResponseEntity.noContent().build();
     }

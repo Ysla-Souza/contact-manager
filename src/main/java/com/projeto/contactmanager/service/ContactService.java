@@ -3,7 +3,6 @@ package com.projeto.contactmanager.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projeto.contactmanager.model.Contact;
@@ -18,7 +17,7 @@ public class ContactService implements ContactInterface{
     private ContactRepository repositoryC;
     private PersonRepository repositoryP;
 
-    @Autowired
+
     public ContactService(ContactRepository repositoryC, PersonRepository repositoryP
     ){
         this.repositoryC = repositoryC;
