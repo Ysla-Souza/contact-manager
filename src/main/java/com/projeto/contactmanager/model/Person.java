@@ -3,6 +3,7 @@ package com.projeto.contactmanager.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import net.minidev.json.annotate.JsonIgnore;
+
 @Entity
 @Table(name = "person")
 public class Person {
@@ -32,8 +34,10 @@ public class Person {
     @Column
     private String state;
 
-    @OneToMany()
+    @OneToMany(mappedBy =  "person", cascade = CascadeType.ALL,
+                orphanRemoval = true)
     private List<Contact> contact;
+    @JsonIgnore
 
     public Person (){
 

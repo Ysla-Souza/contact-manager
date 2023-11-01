@@ -24,10 +24,10 @@ public class Contact {
     @JoinColumn(name = "idPerson", referencedColumnName = "id")
     private Person person;
     
-    @Column
+    @Column(nullable = false)
     private Long contact;
 
-    @Column
+    @Column(nullable = false)
     private ContactType contactType;
 
     public Contact() {
